@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>About Us</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>blog list</title>
+	<link href="style/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="style/css/mycss.css">
+    <script src="style/js/jQuery.js" type="text/JavaScript" charset="utf-8"></script>
+    <script type="text/javascript" src="style/js/jQuery.js"></script>
+    <script src="style/js/bootstrap.min.js" type="text/JavaScript" charset="utf-8"></script>
+    
+   
+    
+    <script src="style/js/d3.js" charset="utf-8"></script>
+	<script src="style/js/d3.min.js" charset="utf-8"></script>
+	<script src="style/js/jquery-2.2.2.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="style/css/cost.css" />
+	<script src="style/js/echarts.js"></script>
+</head>
+<body>
+	<nav id="div_nav">
+		<div class="bg"></div>
+		<div id="div_nav_top">
+			
+		</div>
+		<a class="divnumber navbar-brand" id="navbrand" href="onhand.html">基于智慧校园的一卡通数据人流分布及预测</a>
+		<div class="divnumber nav navbar-nav navbar-right"  id="div_nav_one">
+			<ul id="dropdown_nav">
+
+				<li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">校园分时地图
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="heatmap.html">上大校园热点图</a></li>
+                        <li><a href="6_8people.html">6-8点人群流动图</a></li>
+                        <li><a href="12_14people.html">12-14点人群流动图</a></li>
+                        <li><a href="20_22people.html">20-22点人群流动图</a></li>
+                        </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">查看地图
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="library.html">图书馆人群流动图</a></li>
+                        <li><a href="shop.html">教育超市人群流动图</a></li>
+                        <li><a href="hospital.html">校医院人群流动图</a></li>
+                        </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">其他数据分析
+                    </a>
+                       <ul class="dropdown-menu">
+                        <li><a href="navbar.html">刷卡数据分析图</a></li>
+                        <li><a href="costanalyse.html">消费数据分析图</a></li>
+                        </ul>
+                </li>
+
+			</ul>
+		</div>
+		
+	</nav>
+
+<div class="aboutus_body">
+	
+	<div>
+		<div class="container">
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-1" id="myScrollspy">
+				<ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+					<li>
+						<a href="#section-1">本科硕士学生体育锻炼消费数据</a>
+					</li>
+					<li><a href="#section-2">本科硕士学生教育超市消费数据</a></li>
+					
+				</ul>
+			</div>
+
+
+			<script type="text/javascript">
+    // Step:3 conifg ECharts's path, link to echarts.js from current page.
+    // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+
+  require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+ function (ec) {
+            //--- 折柱 ---
+            var myChart = ec.init(document.getElementById('costTable'));
+            myChart.setOption({
+                title : {
+        text: '学生在校体育消费数据',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['15级本科生','15级研究生','','14级本科生','14级研究生','','13级本科生', '13级研究生','','12级本科生','12级研究生']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['校内游泳馆','校内网球馆','校内训练馆']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+        {
+            name:'15级本科生',
+            type:'line',
+            data:[4195,20,918],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'15级研究生',
+            type:'line',
+            data:[0,0,0],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'14级本科生',
+            type:'line',
+            data:[7526,67,1828],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'14级研究生',
+            type:'line',
+            data:[0,0,0],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'13级本科生',
+            type:'line',
+            data:[10551,70,1854],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'13级研究生',
+            type:'line',
+            data:[0,0,0],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'12级本科生',
+            type:'line',
+            data:[12140,28,1817],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'12级研究生',
+            type:'line',
+            data:[0,0,0],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        
+    ]
+            });
+}
+
+
+);
+
+ 
+
+ 
+
+require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+ function (ec2) {
+            //--- 折柱 ---
+            var myChart = ec2.init(document.getElementById('costTable2'));
+            myChart.setOption({
+                title : {
+        text: '本科硕士学生教育超市消费数据',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['15级本科生','15级研究生','','14级本科生','14级研究生','','13级本科生', '13级研究生','','12级本科生','12级研究生']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['宝山D楼教超易科士','\n宝山南区教超易科士','宝山图书馆教超易科士','\n宝山西门教超易科士','宝山新世纪教超易科士']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+        {
+            name:'15级本科生',
+            type:'line',
+            data:[38785,13383,24549,25293,60905],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'15级研究生',
+            type:'line',
+            data:[9516,45,18324,13791,980],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'14级本科生',
+            type:'line',
+            data:[127841,14344,57110,51628,125071],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'14级研究生',
+            type:'line',
+            data:[10937,111,29637,26698,2702],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'13级本科生',
+            type:'line',
+            data:[151607,48144,60999,29842,83312],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'13级研究生',
+            type:'line',
+            data:[5566,44,24205,20741,2543],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'12级本科生',
+            type:'line',
+            data:[75125,37992,64989,31557,5368],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'12级研究生',
+            type:'line',
+            data:[1744,19,8940,7156,660],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        
+    ]
+            });
+}
+
+
+);
+
+
+
+		</script>
+
+
+			<div class="col-xs-8">
+				<h2 id="section-1">本科硕士学生体育锻炼消费数据</h2>
+				<div id="costTable" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				<h2 id="section-2">本科硕士学生教育超市消费数据</h2>
+				<div id="costTable2" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				
+				<hr>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+
+
+<footer>
+	<hr>
+		<div id="div_copyright">
+			<p>		
+				<br class="visible-xs-block">
+				" 地址：上海市宝山区上大路99号 D502 邮编：200444"
+				<br class="visible-xs-block">
+				<a target="_blank" href="#"></a>
+				<a target="_blank" href="#"></a>
+			</p>
+			
+		</div>
+		<div class="alert-container"></div>
+</footer>
+
+
+
+	
+</body>
+</html>

@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>About Us</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>blog list</title>
+	<link href="style/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="style/css/mycss.css">
+    <script src="style/js/jQuery.js" type="text/JavaScript" charset="utf-8"></script>
+    <script type="text/javascript" src="style/js/jQuery.js"></script>
+    <script src="style/js/bootstrap.min.js" type="text/JavaScript" charset="utf-8"></script>
+    
+   
+    
+    <script src="style/js/d3.js" charset="utf-8"></script>
+	<script src="style/js/d3.min.js" charset="utf-8"></script>
+	<script src="style/js/jquery-2.2.2.min.js" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="style/css/cost.css" />
+	<script src="style/js/echarts.js"></script>
+</head>
+<body>
+	<nav id="div_nav">
+		<div class="bg"></div>
+		<div id="div_nav_top">
+			
+		</div>
+		<a class="divnumber navbar-brand" id="navbrand" href="onhand.html">基于智慧校园的一卡通数据人流分布及预测</a>
+		<div class="divnumber nav navbar-nav navbar-right"  id="div_nav_one">
+			<ul id="dropdown_nav">
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">校园分时地图
+                    </a>
+                   
+                    <ul class="dropdown-menu">
+                        <li><a href="heatmap.html">上大校园热点图</a></li>
+                        <li><a href="6_8people.html">6_8点人群流动图</a></li>
+                        <li><a href="12_14people.html">12_14点人群流动图</a></li>
+                        <li><a href="20_22people.html">20_22点人群流动图</a></li>
+                        </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">查看地图
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="library.html">图书馆人群流动图</a></li>
+                        <li><a href="shop.html">教育超市人群流动图</a></li>
+                        <li><a href="hospital.html">校医院人群流动图</a></li>
+                        </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">其他数据分析
+                    </a>
+                        <ul class="dropdown-menu">
+                        <li><a href="navbar.html">刷卡数据分析图</a></li>
+                        <li><a href="costanalyse.html">消费数据分析图</a></li>
+                        </ul>
+                </li>
+
+            </ul>
+		</div>
+		
+	</nav>
+
+<div class="aboutus_body">
+	
+	<div>
+		<div class="container">
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-1" id="myScrollspy">
+				<ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+					<li>
+						<a href="#section-1">南区刷卡情况女</a>
+					</li>
+					<li><a href="#section-2">南区刷卡情况男</a></li>
+					<li><a href="#section-3">校内刷卡情况</a></li>
+					<li><a href="#section-4">图书馆刷卡情况</a></li>
+					<li><a href="#section-5">食堂刷卡情况</a></li>
+					<li><a href="#section-6">新世纪刷卡情况</a></li>
+				</ul>
+			</div>
+
+
+			<script type="text/javascript">
+    // Step:3 conifg ECharts's path, link to echarts.js from current page.
+    // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+    require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+        function (ec) {
+            //--- 折柱 ---
+            var myChart = ec.init(document.getElementById('costTable'));
+            myChart.setOption({
+                title : {
+        text: '上海大学南区刷卡人次变化',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['南区一号楼','南区二号楼','南区三号楼','',
+        '南区四号楼','南区十号楼','南区十二号楼','','南区十四号楼']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0:00--2:00','\n2:00--4:00','4:00--6:00','\n6:00--8:00','8:00--10:00','\n10:00--12:00','12:00-14:00','\n14:00--16:00', '16:00--18:00','\n18:00-20:00','20:00-22:00','\n22:00-24:00']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+    {
+            name:'南区一号楼',
+            type:'line',
+            data:[26789, 5571, 4525, 76092, 176988, 225097, 227889, 168909, 277984, 286137, 262908, 121669],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'南区二号楼',
+            type:'line',
+            data:[1267, 190, 364, 7703, 12347, 16362, 23509, 14255, 24905, 22457, 22209, 8253],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'南区三号楼',
+            type:'line',
+            data:[2897, 674, 538, 5358, 18084, 27341, 31028, 21377, 33790, 35477, 30181, 12462],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区四号楼',
+            type:'line',
+            data:[3010, 521, 675, 8655, 25420, 37013, 38334, 26447, 45232, 44972, 37683, 15987],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区十号楼',
+            type:'line',
+            data:[5946, 1061, 1075, 27435, 46218, 53371, 54619, 39697, 65570, 64449, 62316, 29175],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区十二号楼',
+            type:'line',
+            data:[3305, 480, 702, 15394, 32441, 41608, 40407, 29572, 52109, 52388, 48610, 19258],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区十四号楼',
+            type:'line',
+            data:[4188, 800, 819, 19980, 49086, 59436, 53786, 40852, 68777, 70515, 63197, 23941],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+
+
+    ]
+            });
+}
+);
+
+
+  require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+ function (ec2) {
+            //--- 折柱 ---
+            var myChart = ec2.init(document.getElementById('costTable2'));
+            myChart.setOption({
+                title : {
+        text: '上海大学南区刷卡人次变化',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['南区二号楼','南区五号楼','南区六号楼','',
+        '南区七号楼','南区八号楼','南区九号楼','','南区十一号楼']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0:00--2:00','\n2:00--4:00','4:00--6:00','\n6:00--8:00','8:00--10:00','\n10:00--12:00','12:00-14:00','\n14:00--16:00', '16:00--18:00','\n18:00-20:00','20:00-22:00','\n22:00-24:00']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+    {
+            name:'南区二号楼',
+            type:'line',
+            data:[1267, 190, 364, 7703, 12347, 16362, 23509, 14255, 24905, 22457, 22209, 8253],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'南区五号楼',
+            type:'line',
+            data:[7098, 2071, 1078, 4595, 27440, 47477, 50846, 31942, 58826, 57793, 54774, 26998],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'南区六号楼',
+            type:'line',
+            data:[7917, 2320, 1274, 1985, 20156, 33839, 42945, 28281, 43337, 46668, 42990, 24494],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区七号楼',
+            type:'line',
+            data:[8152, 1788, 1499, 5854, 21777, 32060, 39652, 26376, 50160, 53557, 48672, 26558],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区八号楼',
+            type:'line',
+            data:[8940, 2137, 1064, 2804, 25580, 42150, 47323, 31196, 50218, 56443, 48488, 27952],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区九号楼',
+            type:'line',
+            data:[8160, 1412, 929, 19639, 44324, 54423, 55608, 40907, 67619, 66535, 64821, 36607],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'南区十一号楼',
+            type:'line',
+            data:[10554, 2541, 1333, 8553, 33709, 47909, 52410, 41138, 63182, 71105, 64774, 38639],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        
+    ]
+            });
+}
+
+
+);
+
+  require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+        function (ec3) {
+            //--- 折柱 ---
+            var myChart = ec3.init(document.getElementById('costTable3'));
+            myChart.setOption({
+                title : {
+        text: '上海大学校内刷卡人次变化',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['校内1号楼','校内2号楼','校内3号楼','',
+        '校内4号楼','校内5号楼']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0:00--2:00','\n2:00--4:00','4:00--6:00','\n6:00--8:00','8:00--10:00','\n10:00--12:00','12:00-14:00','\n14:00--16:00', '16:00--18:00','\n18:00-20:00','20:00-22:00','\n22:00-24:00']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+    {
+            name:'校内1号楼',
+            type:'line',
+            data:[3634, 672, 706, 19521, 31770, 42882, 46484, 30872, 51828, 57313, 51553, 20787],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'校内2号楼',
+            type:'line',
+            data:[3901, 702, 551, 12822, 30561, 34443, 35952, 23941, 41309, 45967, 45148, 26039],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'校内3号楼',
+            type:'line',
+            data:[8431, 1544, 1102, 12845, 44865, 41857, 44261, 30674, 50630, 56995, 50068, 39983],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'校内4号楼',
+            type:'line',
+            data:[6486, 1340, 1153, 4120, 29856, 43887, 43722, 30325, 52121, 54609, 50748, 30815],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'校内5号楼',
+            type:'line',
+            data:[9740, 2019, 1364, 10012, 37633, 51300, 58574, 38970, 61260, 67844, 57695, 38140],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        
+    ]
+            });
+}
+);
+
+ require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+ function (ec4) {
+            //--- 折柱 ---
+            var myChart = ec4.init(document.getElementById('costTable4'));
+            myChart.setOption({
+                title : {
+        text: '上海大学图书馆刷卡人次变化',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['图书馆']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0:00--2:00','\n2:00--4:00','4:00--6:00','\n6:00--8:00','8:00--10:00','\n10:00--12:00','12:00-14:00','\n14:00--16:00', '16:00--18:00','\n18:00-20:00','20:00-22:00','\n22:00-24:00']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+    {
+            name:'图书馆',
+            type:'line',
+            data:[137, 39, 947, 8403, 24243, 26315, 29697, 29666, 22484, 19309, 11600, 664],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        
+    ]
+            });
+}
+
+
+);
+
+ require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+        function (ec5) {
+            //--- 折柱 ---
+            var myChart = ec5.init(document.getElementById('costTable5'));
+            myChart.setOption({
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['食堂刷卡人次统计']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+
+                        data : ['益新','尔美','山明','水秀','吾馨']
+                    }
+                    
+                ],
+
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitArea : {show : true}
+                    }
+                ],
+                series : [
+                    {
+                        name:'刷卡次数',
+                        type:'bar',
+                        data:[2193728,994383,947493,1192868,2232472]
+                    },
+                    
+                  
+                ]
+            });
+}
+);
+
+require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+    
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+ function (ec6) {
+            //--- 折柱 ---
+            var myChart = ec6.init(document.getElementById('costTable6'));
+            myChart.setOption({
+                title : {
+        text: '上海大学新世纪刷卡人次变化',
+        subtext: '数据来源：上海大学一卡通数据'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['新世纪1栋','新世纪4栋','新世纪8栋','',
+        '新世纪11栋','新世纪14栋','新世纪19栋']
+
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0:00--2:00','\n2:00--4:00','4:00--6:00','\n6:00--8:00','8:00--10:00','\n10:00--12:00','12:00-14:00','\n14:00--16:00', '16:00--18:00','\n18:00-20:00','20:00-22:00','\n22:00-24:00']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
+        }
+    ],
+    series : [
+    {
+            name:'新世纪1栋',
+            type:'line',
+            data:[2779, 707, 352, 7240, 7587, 14825, 15233, 10505, 16411, 15188, 12859, 8140],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'新世纪4栋',
+            type:'line',
+            data:[6533, 849, 644, 19590, 30644, 40198, 50497, 34365, 51467, 46070, 40658, 28076],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'新世纪8栋',
+            type:'line',
+            data:[4079, 608, 1215, 28330, 29628, 40290, 56183, 34515, 58096, 51076, 41519, 20705],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'新世纪11栋',
+            type:'line',
+            data:[5833, 1032, 2000, 14013, 46086, 61217, 76812, 53960, 71621, 68211, 65556, 31450],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'新世纪14栋',
+            type:'line',
+            data:[5722, 1198, 891, 21934, 22356, 36015, 42269, 25067, 42833, 39431, 34563, 20866],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+         {
+            name:'新世纪19栋',
+            type:'line',
+            data:[2592, 373, 1006, 16284, 24149, 28827, 36194, 24176, 39873, 32651, 32306, 16892],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        },
+        
+    ]
+            });
+}
+
+
+);
+
+
+		</script>
+
+
+			<div class="col-xs-8">
+				<h2 id="section-1">南区刷卡情况女</h2>
+				<div id="costTable" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				<h2 id="section-2">南区刷卡情况男</h2>
+				<div id="costTable2" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				<h2 id="section-3">校内刷卡情况</h2>
+				<div id="costTable3" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				<h2 id="section-4">图书馆刷卡情况</h2>
+				<div id="costTable4" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				<h2 id="section-5">食堂刷卡情况</h2>
+				<div id="costTable5" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+				<h2 id="section-6">新世纪刷卡情况</h2>
+				<div id="costTable6" style="height:580px;border:1px solid #ccc;padding:10px;">
+				</div>
+                <p>
+                    
+                </p>
+				<hr>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+
+
+<footer>
+	<hr>
+		<div id="div_copyright">
+			<p>		
+				<br class="visible-xs-block">
+				" 地址：上海市宝山区上大路99号 D502 邮编：200444"
+				<br class="visible-xs-block">
+				<a target="_blank" href="#"></a>
+				<a target="_blank" href="#"></a>
+			</p>
+			
+		</div>
+		<div class="alert-container"></div>
+</footer>
+
+
+
+	
+</body>
+</html>

@@ -1,0 +1,43 @@
+.xaxis path, .xaxis line{
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+
+.xaxis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+.yaxis path, .yaxis line{
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+
+.yaxis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+.MyRect {
+}
+
+.MyText {
+	fill: white;
+	text-anchor: middle;
+}
+
+div#bc{
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index:-1;
+}
+div#bc img {
+	height:100%;
+	width:100%;
+	border:0;
+}

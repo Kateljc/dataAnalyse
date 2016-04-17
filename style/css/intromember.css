@@ -1,0 +1,56 @@
+.project_icon{
+	margin-left: 300px;
+}
+
+#intro_image{
+	height: 360px;
+	width: 90%;
+	margin: 0px auto;
+	border-radius: 20px;
+	background-color: rgb(245,245,245);
+}
+
+.intro_textmember{
+	
+}
+
+.intro_text{
+	height: 200px;
+	width: 100%;
+	border-radius: 10px;
+	background-color: rgb(245,245,245);
+}
+
+.intro_text_two{
+	height: 200px;
+	width: 100%;
+	border-radius: 10px;
+	background-color: rgb(245,245,245);
+	margin-bottom: 10px;
+
+}
+
+.intro_image{
+	height: 200px;
+	width: 100%;
+	border-radius: 20px;
+	background-color: #ADD8E6;
+	margin-bottom: 10px;
+
+}
+
+.intro_member{
+	height: 150px;
+	border-radius: 20px;
+	background-color: #ADD8E6;
+}
+
+
+#intro_table{
+	margin-left: 300px;
+}
+
+
+
+
+

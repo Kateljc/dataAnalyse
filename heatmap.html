@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>上大校园热点图</title>
+		<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="ECharts">
+
+	<title>page</title>
+	<link href="style/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="style/css/mycss.css">
+
+    <!-- ****************-->
+    <link rel="shortcut icon" href="../asset/ico/favicon.png">
+
+    <link href="style/json/font-awesome.min.css" rel="stylesheet">
+    <link href="style/json/bootstrap.css" rel="stylesheet">
+    <link href="style/json/carousel.css" rel="stylesheet">
+    <link href="style/json/echartsHome.css" rel="stylesheet">
+
+
+
+    <!--     -->
+    <script src="style/js/jQuery.js" type="text/JavaScript" charset="utf-8"></script>
+    <script type="text/javascript" src="style/js/jQuery.js"></script>
+    <script src="style/js/bootstrap.min.js" type="text/JavaScript" charset="utf-8"></script>
+  
+    <script src="style/js/esl.js"></script>
+        <script src="style/js/echarts.js"></script>
+        <!-- 引入JQuery -->
+        <script src="style/js/jquery-1.7.2.min.js"></script>
+        <!-- 引入百度开放平台接口 -->
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yb86W3Dmh8p4fCBzt8evVDKW"></script>
+ 
+ 	
+  
+	
+	<!--map11 -->
+
+    <script src="style/json/codemirror.js"></script>
+    <script src="style/json/javascript.js"></script>
+    <link href="style/json/codemirror.css" rel="stylesheet">
+    <link href="style/json/monokai.css" rel="stylesheet">
+		<!--<meta charset="utf-8">-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yb86W3Dmh8p4fCBzt8evVDKW"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+		<style type="text/css">
+			ul,li{list-style: none;margin:0;padding:0;float:left;}
+			html{height:100%}
+			body{height:100%;margin:0px;padding:0px;font-family:"Î¢ÈíÑÅºÚ";}
+			#container{height:100%;width:100%;}
+			#r-result{width:100%;}
+		</style>	
+	</head>
+	
+	<body>
+			<nav id="div_nav">
+		<div class="bg"></div>
+		<div id="div_nav_top">
+			
+		</div>
+		<a class="divnumber navbar-brand" id="navbrand" href="onhand.html">基于智慧校园的一卡通数据人流分布及预测</a>
+		<div class="divnumber nav navbar-nav navbar-right"  id="div_nav_one">
+			<ul id="dropdown_nav">
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">校园分时地图
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="heatmap.html">上大校园热点图</a></li>
+                        <li><a href="6_8people.html">6_8点人群流动图</a></li>
+                        <li><a href="12_14people.html">12_14点人群流动图</a></li>
+                        <li><a href="20_22people.html">20_22点人群流动图</a></li>
+                        </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">查看地图
+                    </a>
+                    <ul class="dropdown-menu">
+                    	<li><a href="heatmap.html">上大校园热点图</a></li>
+                        <li><a href="library.html">图书馆人群流动图</a></li>
+                        <li><a href="shop.html">教育超市人群流动图</a></li>
+                        <li><a href="hospital.html">校医院人群流动图</a></li>
+                        </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">其他数据分析
+                    </a>
+                        <ul class="dropdown-menu">
+                        <li><a href="navbar.html">刷卡数据分析图</a></li>
+                        <li><a href="costanalyse.html">消费数据分析图</a></li>
+                        </ul>
+                </li>
+
+            </ul>
+		</div>
+		
+	</nav>
+
+
+
+		<div id="container">
+		</div>
+		<script type="text/javascript">
+			var heatmap = [];
+			
+			//打点的个数需要根据人数的比例，然后不断的传入数据，这里是传入的图书馆的经纬度
+			//lng表示经度，lat表示纬度，count代表了颜色的深浅（0-100之间）这里是直接生成的随机数
+			//如果有数据不能直接用随机数可以考虑点的叠加
+			//如果人密集可以考虑把Math.random()*50+50也就是颜色深度介于50-100之间
+			//如果人口Math.random()*50也就是打点的颜色深度在0-50之间
+			for(var i=0; i<100; i++){
+				/*heatmap.push(
+					{"lng":(121.398825+(Math.random()/1000) - 0.0005),"lat":(31.322597+(Math.random()/1000) - 0.0005),"count":(Math.random()*100)}
+				);
+*/
+				heatmap.push(
+					{"lng":(121.400572+(Math.random()/4500) - 0.0005),"lat":(31.324833+(Math.random()/4500) - 0.0005),"count":(Math.random()*32)}
+				);  //游泳馆
+				heatmap.push(
+					{"lng":(121.401214+(Math.random()/4500) - 0.0005),"lat":(31.325338+(Math.random()/4500) - 0.0005),"count":(Math.random()*2)}
+				);//训练馆
+				heatmap.push(
+					{"lng":(121.401978+(Math.random()/4500) - 0.0005),"lat":(31.324934+(Math.random()/4500) - 0.0005),"count":(Math.random()*8)}
+				);   //体育馆
+				heatmap.push(
+					{"lng":(121.395716+(Math.random()/4500) - 0.0005),"lat":(31.321828+(Math.random()/4500) - 0.0005),"count":(Math.random()*50)}
+				);  //益新
+				heatmap.push(
+						{"lng":(121.397882+(Math.random()/4500) - 0.0005),"lat":(31.325049+(Math.random()/4500) - 0.0005),"count":(Math.random()*60)}
+				);  //尔美
+				heatmap.push(
+						{"lng":(121.395084+(Math.random()/4500) - 0.0005),"lat":(31.323349+(Math.random()/4500) - 0.0005),"count":(Math.random()*50)}
+				);  //山明
+				heatmap.push(
+						{"lng":(121.402342+(Math.random()/4500) - 0.0005),"lat":(31.322308+(Math.random()/4500) - 0.0005),"count":(Math.random()*90)}
+				);  //水秀
+				heatmap.push(
+						{"lng":(121.395922+(Math.random()/4500) - 0.0005),"lat":(31.316514+(Math.random()/4500) - 0.0005),"count":(Math.random()*90)}
+				);  //吾馨
+
+
+			}
+			
+			var map = new BMap.Map("container");
+			var point = new BMap.Point(121.398825, 31.322597);
+			var point = new BMap.Point(121.400572, 31.324833); //游泳馆
+			var point = new BMap.Point(121.401214, 31.325338); //训练馆
+			var point = new BMap.Point(121.401978, 31.324934); //体育馆
+			var point = new BMap.Point(121.395716, 31.321828); //益新
+			var point = new BMap.Point(121.397882, 31.325049); //尔美
+			var point = new BMap.Point(121.395084, 31.323349); //山明
+			var point = new BMap.Point(121.402342, 31.322308); //水秀
+			var point = new BMap.Point(121.395922, 31.316514); //吾馨
+
+			map.centerAndZoom(point, 18);
+			
+			map.enableScrollWheelZoom(); // ÔÊÐí¹öÂÖËõ·Å
+			/*var points =[
+				{"lng":121.398825,"lat":31.322597,"count":80},
+			];*/
+			var points = heatmap;
+			heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":20});
+			map.addOverlay(heatmapOverlay);
+			heatmapOverlay.setDataSet({data:points,max:100});
+			//heatmapOverlay.show();
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="ECharts">
+
+	<title>6-8点人群流动图</title>
+	<link href="style/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="style/css/mycss.css">
+
+    <!-- ****************-->
+    <link rel="shortcut icon" href="../asset/ico/favicon.png">
+
+    <link href="style/json/font-awesome.min.css" rel="stylesheet">
+    <link href="style/json/bootstrap.css" rel="stylesheet">
+    <link href="style/json/carousel.css" rel="stylesheet">
+    <link href="style/json/echartsHome.css" rel="stylesheet">
+
+  
+
+    <!--     -->
+    <script src="style/js/jQuery.js" type="text/JavaScript" charset="utf-8"></script>
+    <script type="text/javascript" src="style/js/jQuery.js"></script>
+    <script src="style/js/bootstrap.min.js" type="text/JavaScript" charset="utf-8"></script>
+  
+    <script src="style/js/esl.js"></script>
+        <script src="style/js/echarts.js"></script>
+        <!-- 引入JQuery -->
+        <script src="style/js/jquery-1.7.2.min.js"></script>
+        <!-- 引入百度开放平台接口 -->
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yb86W3Dmh8p4fCBzt8evVDKW"></script>
+ 
+ 	
+  
+	
+	<!--map11 -->
+
+    <script src="style/json/codemirror.js"></script>
+    <script src="style/json/javascript.js"></script>
+    <link href="style/json/codemirror.css" rel="stylesheet">
+    <link href="style/json/monokai.css" rel="stylesheet">
+
+
+    <!-- map11 -->
+
+
+ 	
+    <script type="text/javascript">
+   
+
+
+    </script>
+    
+    <script type="text/javascript">
+    // Step:3 conifg ECharts's path, link to echarts.js from current page.
+    // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+     require.config({
+        paths: {
+            echarts: 'style/js'
+        }
+    });
+
+    // Step:4 require echarts and use it in the callback.
+    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+    
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+        ],
+        function (ec) {
+        	 var myChart2 = ec.init(document.getElementById('mainMap'));
+            myChart2.setOption({
+                tooltip : {
+                    trigger: 'item',
+                    formatter: '{b}'
+                },
+                series : [
+                    {
+                        name: '中国',
+                        type: 'map',
+                        mapType: 'china',
+                        selectedMode : 'multiple',
+                        itemStyle:{
+                            normal:{label:{show:true}},
+                            emphasis:{label:{show:true}}
+                        },
+                        data:[
+                            {name:'广东',selected:true}
+                        ]
+                    }
+                ]
+            });
+        }
+    );
+
+
+
+    </script>
+
+</head>
+<body>
+	<nav id="div_nav">
+		<div class="bg"></div>
+		<div id="div_nav_top">
+			
+		</div>
+		<a class="divnumber navbar-brand" id="navbrand" href="onhand.html">基于智慧校园的一卡通数据人流分布及预测</a>
+		<div class="divnumber nav navbar-nav navbar-right"  id="div_nav_one">
+			<ul id="dropdown_nav">
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">校园分时地图
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="heatmap.html">上大校园热点图</a></li>
+                        <li><a href="6_8people.html">6_8点人群流动图</a></li>
+                        <li><a href="12_14people.html">12_14点人群流动图</a></li>
+                        <li><a href="20_22people.html">20_22点人群流动图</a></li>
+                        </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">查看地图
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="library.html">图书馆人群流动图</a></li>
+                        <li><a href="shop.html">教育超市人群流动图</a></li>
+                        <li><a href="hospital.html">校医院人群流动图</a></li>
+                        </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;">其他数据分析
+                    </a>
+                        <ul class="dropdown-menu">
+                        <li><a href="navbar.html">刷卡数据分析图</a></li>
+                        <li><a href="costanalyse.html">消费数据分析图</a></li>
+                        </ul>
+                </li>
+
+            </ul>
+		</div>
+		
+	</nav>
+    <div id="div_body">
+	
+		<div class="div_content">
+            <div class="row">
+   			<!--<div id="mainMap" style="height:500px; border:none;padding:10px;">
+            </div>  -->
+            <div id="main"  style="height:500px;border:none;padding:10px; " class="col-md-12">    </div>
+            </div>
+          <script type="text/javascript">
+            // 路径配置
+            (function () {
+                require.config({
+                    paths: {
+                        echarts: 'style/js'
+                    },
+                    packages: [
+                        {
+                            name: 'BMap',
+                            location: 'style/js/src',
+                            main: 'main'
+                        }
+                    ]
+                });
+
+                require(
+                [
+                    'echarts',
+                    'BMap',
+                    'echarts/chart/map'
+                ],
+                
+                //绘制
+                function (echarts, BMapExtension) {
+                    //获取扩展
+                    var BMapExt = new BMapExtension($('#main')[0], BMap, echarts,{
+                        enableMapClick: true
+                    });
+                    //获取Echarts所需Map
+                    var map = BMapExt.getMap();
+                    var container = BMapExt.getEchartsContainer();
+                    
+                    //上海大学图书馆经纬度，以图书馆为中心定位
+                    var startPoint = {
+                        x: 121.398825,
+                        y: 31.322597
+                    };
+                    var point = new BMap.Point(startPoint.x, startPoint.y);
+                    //街道级别初始18，刚好显示完整校园
+                    map.centerAndZoom(point, 18);
+                    
+                    //可滚轮缩放
+                    map.enableScrollWheelZoom();
+        
+                    //图标选项可参考http://echarts.baidu.com/echarts2/doc/doc.html#Option
+                    option = {
+                        color:['gold','aqua','lime'],
+                        title:{
+                            text:'模拟人群流动',
+                            subtext:'数据来源：校园一卡通数据',
+                            x:'center',
+                            //textStyle:{
+                            //  color:'#fff'
+                            //}
+                        },
+                        //将会根据value的值决定颜色的色差0-100可调，也可按照百分比来实现
+                        dataRange: {
+                            min : 0,
+                            max : 100,
+                            y: '60%',
+                            calculable : true,
+                            //颜色可选，具体颜色RGB可查
+                            color: ['#ff3333', 'orange', 'yellow','lime','aqua']
+                        },
+                        
+                        //考虑不同地方向其他地方的人口流动
+                        series : [{
+                            //name 系列名称，将与legand.data索引相关
+                            name:'图书馆',
+                            //地图类型
+                            type:'map',
+                            mapType:'none',
+                            //一般用于折线和柱状本处map不使用
+                            data:[],
+                            //经纬度指定文本位置
+                            geoCoord:{
+                                '图书馆':[121.398825, 31.322597],
+                                '南区':[121.395725, 31.31683],
+                                '新世纪':[121.393192,31.320624],
+                                '西门':[121.394126,31.320779],
+                                '益新食堂':[121.395716,31.321828],
+                                '南区宿舍':[121.395509,31.315581],
+                                '南区食堂':[121.395922,31.316514],
+                                '尔美食堂':[121.397882,31.325049],
+                                '水秀食堂':[121.402342,31.322308],
+                                '山明食堂':[121.395084,31.323349],
+                                '南区后勤大楼':[121.395922,31.318141],
+                                '校内排球场':[121.395455,31.320385],
+                                '樱花园':[121.399552,31.318025],
+                                '教学楼南门':[121.403118,31.319375],
+                                '教学楼F楼':[121.40027,31.322136],
+                                '畔池路口':[121.397153,31.321604],
+                                '图书馆旁':[121.397746,31.323185],
+                                '东门':[121.403962,31.324126],
+                                '东外环F':[121.400050,31.322109],
+                                '东外环A':[121.403712,31.319709],
+                                '东外环拐':[121.400505,31.323862],
+                                '游泳馆':[121.400572,31.324833],
+                                '体育馆':[121.401978,31.324934],
+                                '训练馆':[121.401214,31.325338],
+                                '运动场岔':[121.398133,31.325304],
+                                '三岔口':[121.396665,31.318297],
+                                '西外环1':[121.395452,31.320372],
+                                '西外环2':[121.394994,31.321344],
+                                '留学生公寓':[121.395223,31.323769],
+                                '校医院':[121.395155,31.325894],
+
+
+                            },
+                            //连线的各种属性和定义
+                            //可参考http://echarts.baidu.com/echarts2/doc/doc.html#SeriesMarkLine
+                            markLine : {
+                                //平滑曲线表示，为true不支持虚线
+                                smooth:true,
+                                //炫光特效
+                                effect : {
+                                    show: true,
+                                    scaleSize: 1,
+                                    period: 15,
+                                    color: '#fff',
+                                    shadowBlur: 10
+                                },
+                                //样式属性
+                                itemStyle : {
+                                    normal: {
+                                        borderWidth:1,
+                                        lineStyle: {
+                                            type: 'solid',
+                                            shadowBlur: 10
+                                        }
+                                    }
+                                },
+                                //修改此处的值，使得符合上大人流的移动
+                                data : [
+                                    [{name:'图书馆'}, {name:'南区',value:20}],
+                                     [{name:'新世纪'}, {name:'西门',value:80}],
+                                     [{name:'西门'}, {name:'益新食堂',value:75}],
+                                     [{name:'南区宿舍'}, {name:'南区食堂',value:75}],
+                                     [{name:'南区宿舍'}, {name:'南区食堂',value:75}],
+                                     [{name:'南区食堂'}, {name:'南区后勤大楼',value:75}],
+                                     [{name:'南区后勤大楼'}, {name:'校内排球场',value:25}],
+                                     [{name:'南区后勤大楼'}, {name:'樱花园',value:45}],
+                                     [{name:'樱花园'}, {name:'教学楼南门',value:40}],
+                                     [{name:'益新食堂'}, {name:'教学楼F楼',value:60}],
+                                     [{name:'益新食堂'}, {name:'畔池路口',value:25}],
+                                     [{name:'畔池路口'}, {name:'图书馆旁',value:30}],
+                                     [{name:'图书馆旁'}, {name:'东门',value:50}],
+                                     [{name:'校内排球场'}, {name:'畔池路口',value:25}],
+                                     [{name:'畔池路口'}, {name:'教学楼F楼',value:50}],
+                                     [{name:'教学楼F楼'}, {name:'东门',value:20}],
+                                     [{name:'教学楼南门'}, {name:'东门',value:25}],
+                                ]
+                            },
+                            //标注显示，可参考http://echarts.baidu.com/echarts2/doc/doc.html#SeriesMarkPoint
+                            markPoint:{
+                                symbol:'emptyCircle',
+                                effect:{
+                                    show:true,
+                                    shadowBlur:0
+                                },
+                                itemStyle:{
+                                    normal:{
+                                        label:{show:false}
+                                    }
+                                },
+                                data:[
+                                    {name:'图书馆', value:30},
+                                    {name:'南区', value:40},
+                                    {name:'新世纪', value:100},
+                                    {name:'西门', value:70},
+                                    {name:'益新食堂', value:65},
+                                    {name:'南区宿舍', value:75},
+                                    {name:'南区食堂', value:55},
+                                    {name:'南区后勤大楼', value:70},
+                                    {name:'校内排球场', value:30},
+                                    {name:'樱花园', value:45},
+                                    {name:'教学楼南门', value:40},
+                                    {name:'教学楼F楼', value:60},
+                                    {name:'畔池路口', value:25},
+                                    {name:'图书馆旁', value:30},
+                                    {name:'东门', value:50},
+
+                                ]
+                            }
+                        }]
+                    };
+                    
+                    //实例方法
+                    var myChart = BMapExt.initECharts(container);
+                    //window.onresize = mychart.resize;
+                    BMapExt.setOption(option);
+                }
+            );
+            })();
+        </script>      
+        
+   		
+		
+
+		</div>	
+
+		
+
+
+	<footer id="div_footer">
+
+	
+
+
+		<hr>
+		<div id="div_copyright">
+			<p>
+				
+				<br class="visible-xs-block">
+				" 地址：上海市宝山区上大路99号  邮编：200444"
+				<br class="visible-xs-block">
+				<a target="_blank" href="#"></a>
+				<a target="_blank" href="#"></a>
+			</p>
+			<p>
+				<a target="_blank" href="#"></a>
+				<a target="_blank" href="#"></a>
+			</p>
+		</div>
+		<div class="alert-container"></div>
+
+	</footer>
+	 <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	 <script src=".style/js/jquery.min.js"></script>
+    <script type="text/javascript" src="style/json/echartsHome.js"></script>
+    <script src="style/js/bootstrap.min.js"></script>
+    <script src="style/json/echartsExample.js"></script>
+</body>
+</html>
